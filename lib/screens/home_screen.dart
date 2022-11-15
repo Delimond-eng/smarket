@@ -66,6 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: ZoomIn(
+              child: FloatingActionButton(
+                elevation: 10.0,
+                backgroundColor: Colors.indigo,
+                onPressed: () {},
+                child: const Icon(
+                  CupertinoIcons.barcode_viewfinder,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       body: Responsive(
@@ -84,23 +98,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _header(context),
-                          SingleChildScrollView(
-                            padding: const EdgeInsets.all(15.0),
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: List.generate(
-                                8,
-                                (index) => ZoomIn(
-                                  child: FilterWidget(
+                          FadeInUp(
+                            child: SingleChildScrollView(
+                              padding: const EdgeInsets.all(15.0),
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: List.generate(
+                                  8,
+                                  (index) => FilterWidget(
                                     isSelected: index == 0,
                                     label: "Catégorie $index",
                                   ),
-                                ),
-                              ).toList(),
+                                ).toList(),
+                              ),
                             ),
                           ),
-                          FadeInLeft(
+                          FadeInUp(
                             child: SearchInput(
                               controller: _searchController,
                               onSearch: () {},
@@ -110,13 +124,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 8.0,
                           ),
                           Expanded(
-                            child: FadeInLeftBig(
+                            child: FadeInLeft(
                               child: GridView.builder(
                                 padding: const EdgeInsets.all(15.0),
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                    SliverGridDelegateWithFixedCrossAxisCount(
                                   childAspectRatio: .8,
-                                  crossAxisCount: 6,
+                                  crossAxisCount:
+                                      (MediaQuery.of(context).size.width ~/ 250)
+                                          .toInt(),
                                   crossAxisSpacing: 10.0,
                                   mainAxisSpacing: 10.0,
                                 ),
@@ -143,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     margin: const EdgeInsets.all(8.0),
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey[200],
+                                      color: Colors.grey[300],
                                       borderRadius: BorderRadius.circular(5.0),
                                     ),
                                     child: Padding(
@@ -178,16 +194,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
                                             ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Text(
-                                                  "Clear all",
-                                                  style: GoogleFonts.poppins(
-                                                    color: Colors.pink[800],
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w500,
+                                            child: Material(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                onTap: () {},
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "Vider panier",
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.pink[800],
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
