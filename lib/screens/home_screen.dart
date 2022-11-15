@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smarket/responsive/base_widget.dart';
@@ -8,7 +9,7 @@ import 'package:smarket/widgets/dashed_separator.dart';
 import 'package:smarket/widgets/product_item.dart';
 import 'package:smarket/widgets/search_input.dart';
 import 'package:smarket/widgets/ticket_wigdet.dart';
-import 'package:virtual_keyboard_2/virtual_keyboard_2.dart';
+import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -19,6 +20,46 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _searchController = TextEditingController();
+
+  void showKeyBoard() {
+    showModalBottomSheet(
+      context: context,
+      barrierColor: Colors.transparent,
+      elevation: 30.0,
+      enableDrag: true,
+      builder: (builder) {
+        return FadeInUp(
+          child: Container(
+            height: 300.0,
+            color: Colors.transparent, //could change this to Color(0xFF737373),
+            //so you don't have to change MaterialApp canvasColor
+            child: Container(
+              color: const Color(0xff240b28),
+              child: VirtualKeyboard(
+                height: 300,
+                textColor: Colors.white,
+                type: VirtualKeyboardType.Alphanumeric,
+                fontSize: 18,
+                // ignore: prefer_const_literals_to_create_immutables
+                defaultLayouts: [VirtualKeyboardDefaultLayouts.English],
+                onKeyPress: (key) {
+                  if (key.keyType == VirtualKeyboardKeyType.Action) {
+                    if (key.action == VirtualKeyboardKeyAction.Return) {
+                      if (kDebugMode) {
+                        print("Retourn data : ${_searchController.text}");
+                      }
+                    }
+                  }
+                },
+                textController: _searchController,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,34 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: FloatingActionButton(
                 elevation: 10.0,
                 backgroundColor: const Color(0xff240b28),
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    barrierColor: Colors.transparent,
-                    elevation: 30.0,
-                    enableDrag: true,
-                    builder: (builder) {
-                      return FadeInUp(
-                        child: Container(
-                          height: 300.0,
-                          color: Colors
-                              .transparent, //could change this to Color(0xFF737373),
-                          //so you don't have to change MaterialApp canvasColor
-                          child: Container(
-                            color: const Color(0xff240b28),
-                            child: VirtualKeyboard(
-                              height: 300,
-                              textColor: Colors.white,
-                              type: VirtualKeyboardType.Alphanumeric,
-                              fontSize: 18,
-                              textController: _searchController,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
+                onPressed: showKeyBoard,
                 child: const Icon(
                   CupertinoIcons.keyboard,
                   color: Colors.white,
@@ -117,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           FadeInUp(
                             child: SearchInput(
                               controller: _searchController,
+                              onFocused: showKeyBoard,
                               onSearch: () {},
                             ),
                           ),

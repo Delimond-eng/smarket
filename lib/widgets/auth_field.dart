@@ -30,10 +30,13 @@ class _AuthFieldState extends State<AuthField> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         color: Colors.white,
-        border: Border.all(
-          color: Colors.orange[300],
-          width: .5,
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.orange.withOpacity(.3),
+            offset: const Offset(0, 2),
+            blurRadius: 2.0,
+          )
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),

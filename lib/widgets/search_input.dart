@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SearchInput extends StatelessWidget {
   final Function onSearch;
+  final Function onFocused;
   final TextEditingController controller;
   final String hintText;
   const SearchInput({
@@ -11,6 +12,7 @@ class SearchInput extends StatelessWidget {
     this.controller,
     this.hintText,
     this.onSearch,
+    this.onFocused,
   }) : super(key: key);
 
   @override
@@ -40,6 +42,8 @@ class SearchInput extends StatelessWidget {
             Flexible(
               child: TextField(
                 controller: controller,
+                maxLines: 1,
+                onTap: onFocused,
                 style: GoogleFonts.poppins(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w800,
