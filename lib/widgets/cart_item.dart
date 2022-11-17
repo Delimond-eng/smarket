@@ -48,8 +48,7 @@ class CartItem extends StatelessWidget {
                     "Lorem ipsum doleret",
                     style: GoogleFonts.poppins(
                       color: Colors.black,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(
@@ -68,7 +67,7 @@ class CartItem extends StatelessWidget {
                       ),
                       CounterCart(
                         onQuantityChanged: (qty) {
-                          debugPrint(qty.toString());
+                          //debugPrint(qty.toString());
                         },
                       )
                     ],

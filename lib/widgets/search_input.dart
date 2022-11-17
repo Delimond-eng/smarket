@@ -43,6 +43,8 @@ class SearchInput extends StatelessWidget {
               child: TextField(
                 controller: controller,
                 maxLines: 1,
+                minLines: 1,
+                expands: false,
                 onTap: onFocused,
                 style: GoogleFonts.poppins(
                   fontSize: 16.0,
